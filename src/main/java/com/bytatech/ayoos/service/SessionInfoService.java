@@ -1,6 +1,9 @@
 package com.bytatech.ayoos.service;
 
+import com.bytatech.ayoos.domain.SessionInfo;
 import com.bytatech.ayoos.service.dto.SessionInfoDTO;
+
+import feign.Param;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -61,4 +64,6 @@ public interface SessionInfoService {
 	 * @return
 	 */
 	List<SessionInfoDTO> findByDate(LocalDate date);
+	
+	SessionInfoDTO findBysessionNameAndDateAndWeekDayAndFromTimeAndToTimeAndWorkPlaceId(String sessionName,LocalDate date,Integer weekDay,Double fromTime,Double toTime, Long workPlaceId);
 }

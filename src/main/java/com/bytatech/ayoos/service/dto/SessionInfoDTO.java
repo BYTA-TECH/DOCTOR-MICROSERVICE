@@ -1,6 +1,9 @@
 package com.bytatech.ayoos.service.dto;
 import java.time.LocalDate;
 import javax.validation.constraints.*;
+
+import com.bytatech.ayoos.domain.SessionInfo;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -106,15 +109,16 @@ public class SessionInfoDTO implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
-        SessionInfoDTO sessionInfoDTO = (SessionInfoDTO) o;
-        if (sessionInfoDTO.getId() == null || getId() == null) {
+        SessionInfoDTO sessionInfo = (SessionInfoDTO) o;
+        if (sessionInfo.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), sessionInfoDTO.getId());
-    }
-
-    @Override
+       boolean duplicate = (sessionInfo.getSessionName().equals(getSessionName()))
+        	&&(sessionInfo.getFromTime().equals(getFromTime()))&&(sessionInfo.getToTime().equals(getToTime()))&&(sessionInfo.getWeekDay().equals(getWeekDay()))
+       &&(sessionInfo.getWorkPlaceId().equals(getWorkPlaceId()));
+       System.out.println(".............equals method DTO.................:    "+ duplicate);
+        return duplicate;
+    }    @Override
     public int hashCode() {
         return Objects.hashCode(getId());
     }

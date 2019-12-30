@@ -332,16 +332,22 @@ public class SessionInfoResource {
 							throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
 						}
 
-						SessionInfoDTO Sessiondto = sessionInfoMapper.toDto(s);
+						SessionInfoDTO sessionInfoDTO = sessionInfoMapper.toDto(s);
 
-						SessionInfoDTO dto = sessionInfoService.save(Sessiondto);
-
+						//SessionInfoDTO dto=null;
+						
+						//SessionInfoDTO alreadyExits= sessionInfoService.findBysessionNameAndDateAndWeekDayAndFromTimeAndToTimeAndWorkPlaceId(sessionInfoDTO.getSessionName(),sessionInfoDTO.getDate(),sessionInfoDTO.getWeekDay(),sessionInfoDTO.getFromTime(),sessionInfoDTO.getToTime(),sessionInfoDTO.getWorkPlaceId());
+					
+						
+						
+						SessionInfoDTO dto = sessionInfoService.save(sessionInfoDTO);
+						
 						if (dto.getId() == null) {
 							throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
 						}
 
 						SessionInfoDTO result = sessionInfoService.save(dto);
-
+						
 						sessionDTO.add(dto);
 					}
 				}
@@ -371,4 +377,8 @@ public class SessionInfoResource {
 	 * s.getStarTime(); endTime = s.getToTime(); } } return slots; }
 	 */
 
+	@GetMapping("/alreadyused")
+	public SessionInfoDTO getAlreadyUsedsession(@RequestBody SessionInfoDTO session) {
+	return	sessionInfoService.findBysessionNameAndDateAndWeekDayAndFromTimeAndToTimeAndWorkPlaceId(session.getSessionName(),session.getDate(), session.getWeekDay(), session.getFromTime(), session.getToTime(), session.getWorkPlaceId());
+	}
 }

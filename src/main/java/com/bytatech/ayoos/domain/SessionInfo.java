@@ -162,7 +162,11 @@ public class SessionInfo implements Serializable {
         if (sessionInfo.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), sessionInfo.getId());
+       boolean duplicate = (sessionInfo.getSessionName().equals(getSessionName()))
+        	&&(sessionInfo.getFromTime().equals(getFromTime()))&&(sessionInfo.getToTime().equals(getToTime()))&&(sessionInfo.getWeekDay().equals(getWeekDay()))
+       &&(sessionInfo.getWorkPlace().getId().equals(getWorkPlace().getId()));
+       System.out.println(".............equals method.................:    "+ duplicate);
+        return duplicate;
     }
 
     @Override

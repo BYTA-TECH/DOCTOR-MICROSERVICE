@@ -6,6 +6,9 @@ import com.bytatech.ayoos.repository.SessionInfoRepository;
 import com.bytatech.ayoos.repository.search.SessionInfoSearchRepository;
 import com.bytatech.ayoos.service.dto.SessionInfoDTO;
 import com.bytatech.ayoos.service.mapper.SessionInfoMapper;
+
+import feign.Param;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,10 +53,18 @@ public class SessionInfoServiceImpl implements SessionInfoService {
     @Override
     public SessionInfoDTO save(SessionInfoDTO sessionInfoDTO) {
         log.debug("Request to save SessionInfo : {}", sessionInfoDTO);
+        
         SessionInfo sessionInfo = sessionInfoMapper.toEntity(sessionInfoDTO);
+        
+       // SessionInfoDTO alreadyExits= findByFromTimeAndToTimeAndWeekDayAndWorkPlaceId(sessionInfoDTO.getSessionName(),sessionInfoDTO.getDate(),sessionInfoDTO.getWeekDay(),sessionInfoDTO.getFromTime(),sessionInfoDTO.getToTime(),sessionInfoDTO.getWorkPlaceId());
+       // SessionInfoDTO result=null;
+        //if(alreadyExits==null)
+      // {
         sessionInfo = sessionInfoRepository.save(sessionInfo);
         SessionInfoDTO result = sessionInfoMapper.toDto(sessionInfo);
         sessionInfoSearchRepository.save(sessionInfo);
+      // }
+      
         return result;
     }
 
@@ -119,5 +130,12 @@ public class SessionInfoServiceImpl implements SessionInfoService {
 	public List<SessionInfoDTO> findByDate(LocalDate date) {
 		
 		return sessionInfoMapper.toDto(sessionInfoRepository.findByDate(date));
+	}
+
+	@Override
+	public SessionInfoDTO findBysessionNameAndDateAndWeekDayAndFromTimeAndToTimeAndWorkPlaceId(String sessionName, LocalDate date,
+			Integer weekDay, Double fromTime, Double toTime, Long workPlaceId) {
+		
+		return sessionInfoMapper.toDto(sessionInfoRepository.findBysessionNameAndDateAndWeekDayAndFromTimeAndToTimeAndWorkPlaceId(sessionName, date, weekDay, fromTime, toTime, workPlaceId));
 	}
 }
