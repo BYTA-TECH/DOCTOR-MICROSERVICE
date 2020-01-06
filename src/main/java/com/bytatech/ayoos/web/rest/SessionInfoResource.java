@@ -334,13 +334,15 @@ public class SessionInfoResource {
 
 						SessionInfoDTO sessionInfoDTO = sessionInfoMapper.toDto(s);
 
-						//SessionInfoDTO dto=null;
+						SessionInfoDTO dto=null;
 						
-						//SessionInfoDTO alreadyExits= sessionInfoService.findBysessionNameAndDateAndWeekDayAndFromTimeAndToTimeAndWorkPlaceId(sessionInfoDTO.getSessionName(),sessionInfoDTO.getDate(),sessionInfoDTO.getWeekDay(),sessionInfoDTO.getFromTime(),sessionInfoDTO.getToTime(),sessionInfoDTO.getWorkPlaceId());
+						dto= sessionInfoService.findBySessionNameAndDateAndWeekDayAndFromTimeAndToTimeAndWorkPlace_Id(sessionInfoDTO.getSessionName(),sessionInfoDTO.getDate(),sessionInfoDTO.getWeekDay(),sessionInfoDTO.getFromTime(),sessionInfoDTO.getToTime(),sessionInfoDTO.getWorkPlaceId());
 					
+						if (dto.getId() != null) {
+							throw new BadRequestAlertException("A new sessionInfo cannot already have an ID", ENTITY_NAME, "idexists");
+						}
 						
-						
-						SessionInfoDTO dto = sessionInfoService.save(sessionInfoDTO);
+						 dto = sessionInfoService.save(sessionInfoDTO);
 						
 						if (dto.getId() == null) {
 							throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -377,8 +379,12 @@ public class SessionInfoResource {
 	 * s.getStarTime(); endTime = s.getToTime(); } } return slots; }
 	 */
 
-	@GetMapping("/alreadyused")
-	public SessionInfoDTO getAlreadyUsedsession(@RequestBody SessionInfoDTO session) {
-	return	sessionInfoService.findBysessionNameAndDateAndWeekDayAndFromTimeAndToTimeAndWorkPlaceId(session.getSessionName(),session.getDate(), session.getWeekDay(), session.getFromTime(), session.getToTime(), session.getWorkPlaceId());
+	
+	
+	@GetMapping("/used-sessesion")
+	public SessionInfoDTO getAlreadyUsedSessionInfo(@RequestBody SessionInfoDTO session) {
+	return	sessionInfoService.findBySessionNameAndDateAndWeekDayAndFromTimeAndToTimeAndWorkPlace_Id(session.getSessionName(),session.getDate(), session.getWeekDay(), session.getFromTime(), session.getToTime(), session.getWorkPlaceId());
 	}
+	
+	
 }

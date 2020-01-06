@@ -20,7 +20,8 @@ import org.springframework.stereotype.Repository;
 public interface SessionInfoRepository extends JpaRepository<SessionInfo, Long> {
 	List<SessionInfo> findByDate(LocalDate date);
 
-	@Query(value="Select distinct s from SessionInfo s Join s.workPlace w where s.sessionName =:sessionName And s.date =:date And s.weekDay =:weekDay And s.fromTime =:fromTime And s.toTime =:toTime And w.id=:workPlaceId")
-	SessionInfo findBysessionNameAndDateAndWeekDayAndFromTimeAndToTimeAndWorkPlaceId(@Param("sessionName")String sessionName,@Param("date")LocalDate date,@Param("weekDay")Integer weekDay,@Param("fromTime")Double fromTime,@Param("toTime")Double toTime,@Param("workPlaceId") Long workPlaceId);
+	@Query(value="Select  s from SessionInfo s Join s.workPlace w where s.sessionName =:sessionName AND s.date =:date AND s.weekDay =:weekDay AND s.fromTime =:fromTime AND s.toTime =:toTime AND w.id=:workPlaceId")
+
 	
+	SessionInfo findBySessionNameAndDateAndWeekDayAndFromTimeAndToTimeAndWorkPlace_Id(String sessionName,LocalDate date,Integer weekDay,Double fromTime,Double toTime,Long workPlaceId);
 }

@@ -65,5 +65,7 @@ public interface SessionInfoService {
 	 */
 	List<SessionInfoDTO> findByDate(LocalDate date);
 	
-	SessionInfoDTO findBysessionNameAndDateAndWeekDayAndFromTimeAndToTimeAndWorkPlaceId(String sessionName,LocalDate date,Integer weekDay,Double fromTime,Double toTime, Long workPlaceId);
+	SessionInfoDTO findBySessionNameAndDateAndWeekDayAndFromTimeAndToTimeAndWorkPlace_Id(String sessionName,LocalDate date,Integer weekDay,Double fromTime,Double toTime, Long workPlaceId);
+	
+	
 }

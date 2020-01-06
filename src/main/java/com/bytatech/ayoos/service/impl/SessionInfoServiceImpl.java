@@ -132,10 +132,13 @@ public class SessionInfoServiceImpl implements SessionInfoService {
 		return sessionInfoMapper.toDto(sessionInfoRepository.findByDate(date));
 	}
 
+
+
 	@Override
-	public SessionInfoDTO findBysessionNameAndDateAndWeekDayAndFromTimeAndToTimeAndWorkPlaceId(String sessionName, LocalDate date,
-			Integer weekDay, Double fromTime, Double toTime, Long workPlaceId) {
+	public SessionInfoDTO findBySessionNameAndDateAndWeekDayAndFromTimeAndToTimeAndWorkPlace_Id(String sessionName,
+			LocalDate date, Integer weekDay, Double fromTime, Double toTime, Long workPlaceId) {
 		
-		return sessionInfoMapper.toDto(sessionInfoRepository.findBysessionNameAndDateAndWeekDayAndFromTimeAndToTimeAndWorkPlaceId(sessionName, date, weekDay, fromTime, toTime, workPlaceId));
+		return sessionInfoMapper.toDto(sessionInfoRepository.findBySessionNameAndDateAndWeekDayAndFromTimeAndToTimeAndWorkPlace_Id(sessionName, date, weekDay, fromTime, toTime, workPlaceId));
 	}
+	
 }
